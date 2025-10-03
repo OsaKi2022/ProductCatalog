@@ -15,10 +15,8 @@ public class ProductController {
     private final AtomicLong counter = new AtomicLong();
 
     public ProductController() {
-        products.put(counter.incrementAndGet(),
-                new Product(1L, "Laptop", 1200.50,"2025-09-14"));
-        products.put(counter.incrementAndGet(),
-                new Product(2L, "Smartphone", 800.00, "2025-09-17"));
+        products.put(counter.incrementAndGet(), new Product(1L, "Laptop", 1200.50,"2025-09-14"));
+        products.put(counter.incrementAndGet(), new Product(2L, "Smartphone", 800.00, "2025-09-17"));
     }
 
     // GET /products - отримати продукти
