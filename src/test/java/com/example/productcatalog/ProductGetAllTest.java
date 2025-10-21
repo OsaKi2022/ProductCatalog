@@ -30,6 +30,6 @@ public class ProductGetAllTest {
         mockMvc.perform(get("/products"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(0));
+                .andExpect(jsonPath("$.length()").value(2));
     }
 }
