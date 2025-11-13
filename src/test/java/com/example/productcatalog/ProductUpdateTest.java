@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -26,7 +28,7 @@ public class ProductUpdateTest {
 
     @Test
     void shouldUpdateExistingProduct() throws Exception {
-        Product updated = new Product(1L, "Laptop Pro", 1300.00, "2025-09-20");
+        Product updated = new Product(1L, "Laptop Pro", BigDecimal.valueOf(1300.00));
 
         mockMvc.perform(put("/products/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -39,7 +41,7 @@ public class ProductUpdateTest {
 
     @Test
     void updateNonExistentProduct() throws Exception {
-        Product updated = new Product(99L, "Motherboard", 500.00, "2025-09-15");
+        Product updated = new Product(99L, "Motherboard",  BigDecimal.valueOf(500.00));
 
         mockMvc.perform(put("/products/99")
                         .contentType(MediaType.APPLICATION_JSON)

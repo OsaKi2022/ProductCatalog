@@ -1,22 +1,47 @@
 package com.example.productcatalog;
 
-import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.Optional;
 
+@Service
 public class ProductService {
-    private final Map<Long, Product> products = new ConcurrentHashMap<>();
-    private final AtomicLong counter = new AtomicLong();
 
-    public ProductService() {
-        // Початкові дані для демонстрації
-        products.put(counter.incrementAndGet(), new Product(1L, "Laptop", 1200.50,"2025-09-14"));
-        products.put(counter.incrementAndGet(), new Product(2L, "Smartphone", 800.00,"2025-09-17"));
+    private final ProductRepository productRepository;
+
+    @Autowired
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     public List<Product> getAllProducts() {
-        return new ArrayList<>(products.values());
+        return productRepository.findAll();
+    }
+
+    public Optional<Product> getProductById(Long id) {
+        return productRepository.findById(id);
+    }
+
+    public Product createProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    public Optional<Product> updateProduct(Long id, Product updatedProduct) {
+        return productRepository.findById(id)
+                .map(existingProduct -> {
+                    existingProduct.setName(updatedProduct.getName());
+                    existingProduct.setPrice(updatedProduct.getPrice());
+                    existingProduct.setDueDate(updatedProduct.getDueDate());
+                    return productRepository.save(existingProduct);
+                });
+    }
+
+    public boolean deleteProduct(Long id) {
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

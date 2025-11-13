@@ -7,6 +7,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -38,7 +40,7 @@ public class ProductControllerTest {
     @Test
     void shouldCreateNewProduct() throws Exception {
 // Arrange
-        Product savedProduct = new Product(4L, "Keyboard", 75.00,"2025-09-14");
+        Product savedProduct = new Product(4L, "Keyboard", BigDecimal.valueOf(300.0));
 // Act & Assert
         mockMvc.perform(post("/products")
                         .contentType(MediaType.APPLICATION_JSON)
