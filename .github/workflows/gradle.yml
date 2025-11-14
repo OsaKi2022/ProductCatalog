@@ -5,9 +5,9 @@ name: Java CI with Gradle
 # та при створенні/оновленні Pull Request
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "database" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "database" ]
 
 # Визначення завдань (jobs), які будуть виконуватися
 jobs:
